@@ -1,11 +1,12 @@
 from flask import Blueprint, jsonify
-from db import mysql
+from db import mysql, get_db
 
 stats_bp = Blueprint('stats', __name__)
 
 @stats_bp.route('/stats', methods=['GET'])
 def get_stats():
-    cur = mysql.connection.cursor()
+    conn = get_db()  # get a fresh connection
+    cur = conn.cursor()
     cur.execute("SELECT * FROM statistics")
     rows = cur.fetchall()
     cur.close()
