@@ -10,6 +10,11 @@ from routes.contracts import contracts_bp
 from routes.patients import patients_bp
 from routes.transactions import transactions_bp
 # Load environment variables
+from routes.screenings import screenings_bp
+from routes.contracts import contracts_bp
+from routes.patients import patients_bp
+from routes.transactions import transactions_bp
+# Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
