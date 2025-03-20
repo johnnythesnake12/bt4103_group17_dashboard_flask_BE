@@ -14,8 +14,6 @@ CORS(app)  # Allow cross-origin requests (for Postman & frontend)
 app.config.from_object(Config) 
 init_db(app)
 
-mysql = MySQL(app)
-
 app.register_blueprint(stats_bp)
 app.register_blueprint(providers_bp)
 if __name__ == '__main__':
