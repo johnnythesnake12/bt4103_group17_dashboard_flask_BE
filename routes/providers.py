@@ -7,10 +7,12 @@ providers_bp = Blueprint('providers', __name__)
 def get_providers():
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM providers")
-    rows = cur.fetchall()
-    cur.close()
-    
-    # Format response as JSON
+    try:
+        cur.execute("SELECT * FROM providers")
+        rows = cur.fetchall()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cur.close()  # Always close the cursor
     
     return jsonify(rows)
