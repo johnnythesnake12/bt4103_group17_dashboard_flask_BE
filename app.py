@@ -2,7 +2,10 @@ from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 from config import Config
+from db import init_db, mysql
 from dotenv import load_dotenv
+from routes.stats import stats_bp
+from routes.providers import providers_bp
 
 # Load environment variables
 load_dotenv()
@@ -10,29 +13,11 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)  # Allow cross-origin requests (for Postman & frontend)
 app.config.from_object(Config) 
-
-# # Database Config
-# app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'localhost')
-# app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'root')
-# app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', 'password')
-# app.config['MYSQL_DB'] = os.getenv('MYSQL_DB', 'retimark_db')
-# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+init_db(app)
 
 mysql = MySQL(app)
 
-# Test API Route
-@app.route('/test', methods=['GET'])
-def test():
-    return jsonify({"message": "Flask is running!"})
-
-# Get All Statistics
-@app.route('/stats', methods=['GET'])
-def get_stats():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM statistics")
-    rows = cur.fetchall()
-    cur.close()
-    return jsonify(rows)
-
+app.register_blueprint(stats_bp)
+app.register_blueprint(providers_bp)
 if __name__ == '__main__':
     app.run(debug=True)
