@@ -13,6 +13,6 @@ def get_transactions():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
-        cur.close()  # Always close the cursor
+        cur.close() 
     
     return jsonify(rows)

@@ -5,12 +5,12 @@ stats_bp = Blueprint('stats', __name__)
 
 @stats_bp.route('/stats', methods=['GET'])
 def get_stats():
-    conn = get_db()  # get a fresh connection
+    conn = get_db()  
     cur = conn.cursor()
     cur.execute("SELECT * FROM statistics")
     rows = cur.fetchall()
     cur.close()
     
-    # Format response as JSON
+
     
     return jsonify(rows)
