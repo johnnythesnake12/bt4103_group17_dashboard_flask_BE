@@ -1,9 +1,14 @@
-from flask_mysqldb import MySQL
-from flask import Flask
-from config import Config
+import pymysql
+from pymysql.cursors import DictCursor
+from flask import current_app
 
-mysql = MySQL()
-
-def init_db(app):
-    app.config.from_object(Config)
-    mysql.init_app(app)
+def get_db():
+    connection = pymysql.connect(
+        host=current_app.config["MYSQL_HOST"],
+        user=current_app.config["MYSQL_USER"],
+        password=current_app.config["MYSQL_PASSWORD"],
+        db=current_app.config["MYSQL_DB"],
+        cursorclass=DictCursor,
+        autocommit=True 
+    )
+    return connection

@@ -1,0 +1,9 @@
+# Ignore Python cache
+routes/__pycache__/
+*.py[cod]
+
+# Ignore your virtual environment folder
+venv/
+
+# Ignore the npm lock file (if you don't want it tracked)
+package-lock.json

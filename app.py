@@ -1,37 +1,46 @@
 from flask import Flask, jsonify, request
-from flask_mysqldb import MySQL
+import pymysql 
 from flask_cors import CORS
 from config import Config
 from dotenv import load_dotenv
+from db import get_db
 
-# Load environment variables
+
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Allow cross-origin requests (for Postman & frontend)
-app.config.from_object(Config) 
+CORS(app)
+app.config.from_object(Config)
 
-# # Database Config
-# app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'localhost')
-# app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'root')
-# app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', 'password')
-# app.config['MYSQL_DB'] = os.getenv('MYSQL_DB', 'retimark_db')
-# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-mysql = MySQL(app)
 
-# Test API Route
+
 @app.route('/test', methods=['GET'])
 def test():
     return jsonify({"message": "Flask is running!"})
 
-# Get All Statistics
+# Example route: Get All Statistics
 @app.route('/stats', methods=['GET'])
 def get_stats():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM statistics")
-    rows = cur.fetchall()
-    cur.close()
+    conn = get_db()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM statistics")
+            rows = cur.fetchall()
+    finally:
+        conn.close()
+    return jsonify(rows)
+
+# Route: Get All rows from Patients table
+@app.route('/patients', methods=['GET'])
+def get_patients():
+    conn = get_db()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM PATIENTS")
+            rows = cur.fetchall()
+    finally:
+        conn.close()
     return jsonify(rows)
 
 if __name__ == '__main__':
