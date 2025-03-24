@@ -1,13 +1,18 @@
-from flask_mysqldb import MySQL
-from flask import Flask
-from config import Config
+import pymysql
+from flask import g
 
-mysql = MySQL()
-
-def init_db(app):
-    app.config.from_object(Config)
-    mysql.init_app(app)
-
-##maintain db connection
 def get_db():
-    return mysql.connection
+    if 'db' not in g:
+        # Configure the connection to your MySQL database
+        g.db = pymysql.connect(
+            host="localhost", 
+            user="root",  
+            password="password", 
+            database="retimark_db"  
+        )
+    return g.db
+
+def close_db(exception):
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
