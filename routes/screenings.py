@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from MySQLdb.cursors import DictCursor
+from pymysql.cursors import DictCursor
 from db import get_db
 
 screenings_bp = Blueprint('screenings', __name__)
