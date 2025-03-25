@@ -1,7 +1,6 @@
 import pymysql
 from flask import g
 
-##maintain db connection
 def get_db():
     if 'db' not in g:
         # Configure the connection to your MySQL database
