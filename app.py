@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import pymysql 
 from flask_cors import CORS
 from config import Config
 from db import get_db, close_db
