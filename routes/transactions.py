@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from MySQLdb.cursors import DictCursor
+from pymysql.cursors import DictCursor
 from db import get_db
 transactions_bp = Blueprint('transactions', __name__)
 
