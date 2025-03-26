@@ -8,7 +8,7 @@ def get_contracts():
     conn = get_db()
     cur = conn.cursor(DictCursor)
     try:
-        cur.execute("SELECT * FROM contracts")
+        cur.execute("SELECT * FROM Contracts")
         rows = cur.fetchall()
     except Exception as e:
         return jsonify({"error": str(e)}), 500

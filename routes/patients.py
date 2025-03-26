@@ -9,7 +9,7 @@ def get_patients():
     cur = conn.cursor(DictCursor)
 
     try:
-        cur.execute("SELECT * FROM patients")
+        cur.execute("SELECT * FROM Patients")
         rows = cur.fetchall()
         if not rows:
              return jsonify({"message": "No patients found"}), 404

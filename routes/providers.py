@@ -9,7 +9,7 @@ def get_providers():
     conn = get_db()
     cur = conn.cursor(DictCursor)
     try:
-        cur.execute("SELECT * FROM providers")
+        cur.execute("SELECT * FROM Providers")
         rows = cur.fetchall()
     except Exception as e:
         return jsonify({"error": str(e)}), 500

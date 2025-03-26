@@ -8,7 +8,7 @@ def get_transactions():
     conn = get_db()
     cur = conn.cursor(DictCursor)
     try:
-        cur.execute("SELECT * FROM transactions")
+        cur.execute("SELECT * FROM Transactions")
         rows = cur.fetchall()
     except Exception as e:
         return jsonify({"error": str(e)}), 500

@@ -9,7 +9,7 @@ def get_screenings():
     conn = get_db()
     cur = conn.cursor(DictCursor)
     try:
-        cur.execute("SELECT * FROM screenings")
+        cur.execute("SELECT * FROM Screenings")
         rows = cur.fetchall()
     except Exception as e:
         return jsonify({"error": str(e)}), 500
