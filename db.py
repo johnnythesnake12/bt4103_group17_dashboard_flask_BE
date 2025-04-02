@@ -1,16 +1,18 @@
-import pymysql
+import psycopg2
 from flask import g
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def get_db():
     if 'db' not in g:
-        # Configure the connection to your Cloud SQL MySQL database
-        g.db = pymysql.connect(
-            host="34.162.199.100",  #  Cloud SQL Public IP
-            user="retimark",         #  MySQL user
-            password="password",     #  MySQL password
-            database="data-storage", #  database name
-            port=3306,               
-
+        g.db = psycopg2.connect(
+            host=os.getenv("DB_HOST"),
+            dbname=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            port=os.getenv("DB_PORT", 5432),
+            sslmode="require"
         )
     return g.db
 
