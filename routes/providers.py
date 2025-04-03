@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify
 import psycopg2.extras
 from db import get_db
 
+
 providers_bp = Blueprint('providers', __name__)
 
 @providers_bp.route('/providers', methods=['GET'])
@@ -16,4 +17,4 @@ def get_providers():
     finally:
         cur.close() 
     
-    return jsonify(rows)
+    return jsonify([dict(row) for row in rows])
