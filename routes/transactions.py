@@ -1,12 +1,12 @@
 from flask import Blueprint, jsonify
-from pymysql.cursors import DictCursor
+import psycopg2.extras
 from db import get_db
 transactions_bp = Blueprint('transactions', __name__)
 
 @transactions_bp.route('/transactions', methods=['GET'])
 def get_transactions():
     conn = get_db()
-    cur = conn.cursor(DictCursor)
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     try:
         cur.execute("SELECT * FROM Transactions")
         rows = cur.fetchall()
