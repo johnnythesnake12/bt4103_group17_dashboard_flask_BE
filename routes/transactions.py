@@ -10,9 +10,9 @@ def get_transactions():
     try:
         cur.execute("SELECT * FROM Transactions")
         rows = cur.fetchall()
+        return jsonify([dict(row) for row in rows]) 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
         cur.close() 
-    
-    return jsonify(rows)
+ 

@@ -13,9 +13,9 @@ def get_patients():
         rows = cur.fetchall()
         if not rows:
              return jsonify({"message": "No patients found"}), 404
+        return jsonify([dict(row) for row in rows]) 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
         cur.close()  
     
-    return jsonify(rows)
