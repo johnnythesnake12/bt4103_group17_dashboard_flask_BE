@@ -9,7 +9,7 @@ CREATE TABLE statistics (
     amount FLOAT NOT NULL
 );
 
-CREATE TABLE Providers (
+CREATE TABLE providers (
     provider_id SERIAL PRIMARY KEY,
     provider_name VARCHAR(100),
     provider_type VARCHAR(100),
@@ -17,11 +17,23 @@ CREATE TABLE Providers (
     city VARCHAR(100),
     state_region VARCHAR(100),
     country VARCHAR(100),
-    longitude VARCHAR(20),
-    latitude VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    onboarding_stage TEXT NOT NULL DEFAULT 'not_contacted' CHECK (
+        onboarding_stage IN (
+            'not_contacted',
+            'contacted',
+            'demo_scheduled',
+            'demo_done',
+            'trial_started',
+            'trial_ended',
+            'contract_signed'
+        )
+    ),
+    first_login TIMESTAMP DEFAULT NULL,
+    last_active TIMESTAMP DEFAULT NULL
 );
+
 
 CREATE TABLE Patients (
     patient_id SERIAL PRIMARY KEY,
