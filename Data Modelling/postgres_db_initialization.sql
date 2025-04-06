@@ -17,8 +17,6 @@ CREATE TABLE providers (
     city VARCHAR(100),
     state_region VARCHAR(100),
     country VARCHAR(100),
-    longitude VARCHAR(20),
-    latitude VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     onboarding_stage TEXT NOT NULL DEFAULT 'not_contacted' CHECK (
