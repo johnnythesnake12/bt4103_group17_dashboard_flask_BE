@@ -23,3 +23,20 @@ def get_providers():
     finally:
         cur.close() 
 
+@providers_bp.route('/providers/total_worked_with', methods=['GET'])
+def get_total_providers_worked_with():
+    conn = get_db()
+    cur = conn.cursor()
+    try:
+        query = """
+            SELECT COUNT(*) 
+            FROM Providers 
+            WHERE onboarding_stage NOT IN ('not_contacted', 'contacted')
+        """
+        cur.execute(query)
+        total = cur.fetchone()[0]
+        return jsonify({"total_providers_worked_with": total})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cur.close()
