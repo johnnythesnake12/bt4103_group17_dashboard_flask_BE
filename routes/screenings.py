@@ -30,4 +30,17 @@ def get_unique_patient_count():
         return jsonify({"error": str(e)}), 500
     finally:
         cur.close()
-    
+
+@screenings_bp.route('/screenings/total_screenings', methods=['GET'])
+def get_total_screenings():
+    conn = get_db()
+    cur = conn.cursor()
+    try:
+        query = "SELECT COUNT(*) FROM Screenings"
+        cur.execute(query)
+        count = cur.fetchone()[0]
+        return jsonify({"total_screenings": count})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cur.close()
