@@ -10,13 +10,25 @@ def get_adoption_rates():
     conn = get_db()
     cur = conn.cursor()
     cur.execute("""
-        SELECT country,
-               TO_CHAR(DATE_TRUNC('month', used_at), 'YYYY-MM') AS month,
-               COUNT(DISTINCT user_id) AS new_active_users
-        FROM screenings
-        JOIN patients ON patients.patient_id = screenings.user_id
-        GROUP BY country, month
+        SELECT 
+            pr.country,
+            TO_CHAR(DATE_TRUNC('month', s.screening_date), 'YYYY-MM') AS month,
+            COUNT(DISTINCT s.patient_id) AS new_active_users,
+            total.total_users
+        FROM screenings s
+        JOIN providers pr ON pr.provider_id = s.provider_id
+        JOIN (
+        SELECT 
+            pr.country,
+            COUNT(*) AS total_users
+            FROM patients pa
+            JOIN screenings s2 ON s2.patient_id = pa.patient_id
+            JOIN providers pr ON pr.provider_id = s2.provider_id
+            GROUP BY pr.country
+        ) AS total ON total.country = pr.country
+        GROUP BY pr.country, month, total.total_users
         ORDER BY month;
+
     """)
     data = cur.fetchall()
     rows = cur.fetchall()
