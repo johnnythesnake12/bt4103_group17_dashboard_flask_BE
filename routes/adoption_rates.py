@@ -5,7 +5,7 @@ from db import get_db
 adoption_rates_bp = Blueprint('adoption_rates', __name__)
 
 
-@adoption_rates_bp.route("/api/adoption-rates", methods=["GET"])
+@adoption_rates_bp.route("/adoption-rates", methods=["GET"])
 def get_adoption_rates():
     conn = get_db()
     cur = conn.cursor()
