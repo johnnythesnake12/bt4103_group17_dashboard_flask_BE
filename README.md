@@ -20,6 +20,7 @@ This is the backend service for a healthcare market sizing dashboard built with 
 │   ├── transactions.py
 │   ├── countries.py
 │   └── costing_projections.py
+│   └── adoption_rates.py
 ├── .env                         # Environment variables for DB connection
 ├── requirements.txt             # Python dependencies
 └── postgres_db_initialization.sql # Schema initialization script for Supabase
