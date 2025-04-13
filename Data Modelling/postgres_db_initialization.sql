@@ -12,6 +12,27 @@ CREATE TABLE costing_projections (
     "profit" FLOAT
 );
 
+CREATE TABLE countries (
+    "id" INTEGER,
+    "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "country" VARCHAR(100),
+    "total_population" INTEGER,
+    "diabetic_metillus_population" INTEGER,
+    "target_population" INTEGER,
+    "cost_per_hour_specialist" FLOAT,
+    "time_taken_per_consult" FLOAT,
+    "referral_reduction_rate" FLOAT,
+    "diabetes_mellitus_prevalence_rate" FLOAT,
+    "vtdr_prevalence_rate_among_diabetics" FLOAT,
+    "average_treatment_value_per_vtdr" FLOAT,
+    "value_capture_rate" FLOAT,
+    "currency" VARCHAR(100),
+    "revenue" INTEGER,
+    "ppp" FLOAT,
+    "dai" FLOAT
+);
+
+
 CREATE TYPE statistics_type AS ENUM ('expense', 'revenue');
 
 CREATE TABLE statistics (
