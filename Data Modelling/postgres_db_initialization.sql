@@ -1,4 +1,17 @@
 -- Create enum type first
+
+CREATE TABLE costing_projections (
+    "id" INTEGER,
+    "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "country" VARCHAR(100),
+    "fixed_cost" FLOAT,
+    "variable_cost" FLOAT,
+    "total_variable_cost" FLOAT,
+    "total_cost" FLOAT,
+    "revenue" FLOAT,
+    "profit" FLOAT
+);
+
 CREATE TYPE statistics_type AS ENUM ('expense', 'revenue');
 
 CREATE TABLE statistics (
