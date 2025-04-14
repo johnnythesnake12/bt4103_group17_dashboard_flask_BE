@@ -31,17 +31,14 @@ def get_adoption_rates():
 
     """)
     data = cur.fetchall()
-    rows = cur.fetchall()
-
     data_by_country = defaultdict(dict)
     all_months = set()
 
-    # Fill data into a country => month => value structure
-    for country, month, value in rows:
-        data_by_country[country][month] = value
+    for country, month, value, total_users in data:
+        adoption_rate = round((value / total_users) * 100, 2)
+        data_by_country[country][month] = adoption_rate
         all_months.add(month)
 
-    # Sort months for consistent x-axis
     sorted_months = sorted(all_months)
 
     datasets = []
@@ -55,5 +52,6 @@ def get_adoption_rates():
         "labels": sorted_months,
         "datasets": datasets
     }
+
 
     return jsonify(result)
